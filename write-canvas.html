@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        p {
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+            border: 1px solid #000;
+        }
+
+        ul {
+            padding: 0;
+        }
+
+        ul > li {
+            list-style: none;
+            display: inline-block;
+            height: 20px;
+            width: 40px;
+            border: 2px solid #000;
+        }
+
+        ul > li:nth-child(1) {
+            background-color: red;
+        }
+
+        ul > li:nth-child(2) {
+            background-color: blue;
+        }
+
+        ul > li:nth-child(3) {
+            background-color: yellow;
+        }
+
+        ul > li:nth-child(4) {
+            background-color: black;
+        }
+
+        ul > li:nth-child(5) {
+            background-color: #ff13b0;
+        }
+
+    </style>
+</head>
+<body>
+<ul>
+    <li id="one"></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<canvas id="bgc" width="40" height="20" style="border:2px solid brown ;display: block;margin-bottom:10px"></canvas>
+<canvas id="canvas" width="500" height="500" style="border:2px solid skyblue"></canvas>
+
+<script>
+//内容画布
+    var cvs = document.getElementById("canvas");
+    var ctx = cvs.getContext("2d");
+
+    cvs.addEventListener("mousedown", function (e) {
+        ctx.moveTo(e.layerX, e.layerY);
+        ctx.strokeStyle = bgcCtx.fillStyle;
+        ctx.lineWidth = 10;
+        ctx.closePath();
+        cvs.addEventListener("mousemove", getMove)
+    })
+
+    function getMove(e) {
+        ctx.lineTo(e.layerX, e.layerY);
+        ctx.stroke();
+    }
+    document.addEventListener("mouseup", function () {
+        cvs.removeEventListener("mousemove", getMove);
+        // cvs.innerHTML=" ";
+        //ctx.clearRect(0,0,cvs.width,cvs.height);
+
+    })
+
+//小画布
+    var bgc = document.getElementById("bgc");
+    var bgcCtx = bgc.getContext("2d");
+    bgcCtx.fillStyle = "black";
+    //    bgcCtx.fillRect(0, 0, bgc.width, bgc.height);
+    bgcCtx.fillRect(0, 0, bgc.width, bgc.height);
+
+
+    //添加事件
+    var ul = document.getElementsByTagName("ul")[0];
+    console.log(ul);
+    //将lis改变为真实数组
+    var lisarr = [];
+    var lis = ul.getElementsByTagName("li");
+    lisArr = lisarr.concat.apply(lisarr, lis);
+
+
+    var lisAttr=lisArr.forEach(function (val, index) {
+        lisArr[index].addEventListener("click", function () {
+            //        console.log(e);
+            var attr = lisArr[index].getAttribute("backgroundColor");
+            console.log(attr);
+        });
+    });
+
+
+
+</script>
+</body>
+</html>
